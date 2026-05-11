@@ -1,0 +1,14 @@
+streamlit
+streamlit-drawable-canvas
+pdf2image
+PyMuPDF
+img2pdf
+paddleocr
+paddlepaddle
+requests
+python-dotenv
+opencv-python-headless
+scikit-learn
+Pillow
+openai>=1.30.0
+numpy
