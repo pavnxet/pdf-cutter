@@ -1,0 +1,23 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Data and Logs
+data/uploads/*
+data/crops_hindi/*
+data/crops_english/*
+!data/uploads/.gitkeep
+!data/crops_hindi/.gitkeep
+!data/crops_english/.gitkeep
+data/examples/examples.json
+
+# System
+.DS_Store
+Thumbs.db

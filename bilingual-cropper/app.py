@@ -7,19 +7,34 @@ from core.few_shot import save_correction, get_latest_examples
 from streamlit_drawable_canvas import st_canvas
 from PIL import Image
 import pandas as pd
+from dotenv import load_dotenv
+
+load_dotenv()
 
 st.set_page_config(page_title="Bilingual Exam Cropper", layout="wide", initial_sidebar_state="expanded")
 st.title("📄 Bilingual Exam Cropper - OpenRouter Ready")
 
 with st.sidebar:
     st.header("⚙️ Settings")
-    api_key = st.text_input("OpenRouter API Key", type="password", help="Get from openrouter.ai/keys")
-    model = st.selectbox("Vision Model", [
+    api_key = st.text_input("OpenRouter API Key", 
+                           value=os.getenv("OPENROUTER_API_KEY", ""),
+                           type="password", 
+                           help="Get from openrouter.ai/keys")
+    
+    default_model = os.getenv("OPENROUTER_MODEL", "openrouter/owl-alpha")
+    model_options = [
         "openrouter/owl-alpha",
         "anthropic/claude-3.5-sonnet",
         "openai/gpt-4o",
         "google/gemini-1.5-pro"
-    ], help="owl-alpha is fastest and cheapest")
+    ]
+    if default_model not in model_options:
+        model_options.insert(0, default_model)
+        
+    model = st.selectbox("Vision Model", 
+                        model_options,
+                        index=model_options.index(default_model) if default_model in model_options else 0,
+                        help="owl-alpha is fastest and cheapest")
     layout = st.radio("Page Layout", ["Top-Bottom", "Left-Right"], help="How is your exam split?")
     
     st.divider()
